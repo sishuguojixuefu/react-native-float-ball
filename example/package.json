@@ -8,8 +8,7 @@
   },
   "dependencies": {
     "react": "16.8.3",
-    "react-native": "0.59.1",
-    "@youngjs/react-native-floatBall": "../"
+    "react-native": "0.59.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",

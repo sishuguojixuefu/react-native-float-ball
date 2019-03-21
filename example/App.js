@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import {Platform, Text, View} from 'react-native';
-import FloatBall from 'react-native-floatBall'
+import {Platform} from 'react-native';
+import FloatBall from './src'
 
 export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <FloatBall />
-      </View>
+      <FloatBall />
     );
   }
 }

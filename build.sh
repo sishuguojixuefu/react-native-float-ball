@@ -1,0 +1,1 @@
+cp ./example/src/index.tsx ./
