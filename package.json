@@ -1,0 +1,9 @@
+{
+  "name": "react-native-floatBall",
+  "version": "0.1.0",
+  "description": "floatBall with PanResponder",
+  "main": "./dist/",
+  "repository": "https://github.com/young-js/react-native-floatBall",
+  "author": "杨俊宁",
+  "license": "MIT"
+}
