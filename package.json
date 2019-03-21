@@ -17,5 +17,8 @@
   },
   "files": [
     "index.tsx"
-  ]
+  ],
+  "dependencies": {
+    "@types/node": "^11.11.4"
+  }
 }
