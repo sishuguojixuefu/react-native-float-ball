@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Image, PanResponder, StyleSheet, TouchableOpacity, View } from 'react-native'
+import ReactNative, { Image, PanResponder, StyleSheet, TouchableOpacity, View } from 'react-native'
 
 interface Props {
   readonly style?: object,
   readonly children: React.ReactNode
-  readonly onPress: ((event: any) => void) | undefined
+  readonly onPress: ((event: ReactNative.GestureResponderEvent) => void) | undefined
 }
 
 class FloatBall extends Component<Props, {}> {
