@@ -1,1 +1,1 @@
-# react-native-floatBall
+# react-native-float-ball
