@@ -8,6 +8,10 @@ interface Props {
 }
 
 class FloatBall extends Component<Props, {}> {
+  props!: {
+    onPress: any;
+    children: any;
+  };
 
   public render() {
     const { onPress, children } = this.props

@@ -1,16 +1,21 @@
 {
-  "name": "@youngjs/react-native-floatBall",
+  "name": "@youngjs/react-native-float-ball",
   "version": "0.1.0",
   "description": "floatBall with PanResponder",
-  "repository": "https://github.com/young-js/react-native-floatBall",
+  "repository": "https://github.com/young-js/react-native-float-ball",
   "author": "杨俊宁",
   "license": "MIT",
   "scripts": {
-    "build": "./build.sh"
+    "eslint": "eslint ."
   },
   "devDependencies": {
     "@types/react": "^16.8.8",
     "@types/react-native": "^0.57.41",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.13.0",
     "tslint-mobx": "^1.0.10",
     "tslint-react": "^3.6.0",
     "typescript": "^3.3.4000"
