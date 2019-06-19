@@ -8,6 +8,8 @@ interface Props {
    * 球的尺寸
    */
   readonly ballSize?: number
+  top?: number
+  left?: number
 }
 
 const lastLeft = 0 // 球距离左边的距离
@@ -19,6 +21,8 @@ class FloatBall extends Component<Props, any> {
   public static defaultProps = {
     onPress: () => {},
     ballSize: 50,
+    top: 100,
+    left: 0,
   }
 
   public _panResponder!: ReactNative.PanResponderInstance
@@ -45,18 +49,28 @@ class FloatBall extends Component<Props, any> {
       onShouldBlockNativeResponder: (evt, gestureState) => true,
       // 开始手势操作，也可以说按下去。给用户一些视觉反馈，让他们知道发生了什么事情！（如：可以修改颜色）
       // gestureState.{x,y} 现在会被设置为0
-      onPanResponderGrant: (evt, gestureState) => {
-        console.info('[FloatBall]gestureState:', gestureState)
-        const { x0, y0 } = gestureState
-        console.info('[FloatBall]开始手势操作:', `x0: ${x0}`, `y0: ${y0}`)
-      },
-
+      onPanResponderGrant: this._onPanResponderGrant,
       // 最近一次的移动距离为gestureState.move{X,Y}
       // 从成为响应者开始时的累计手势移动距离为gestureState.d{x,y}
       onPanResponderMove: this._onPanResponderMove,
       // 用户放开了所有的触摸点，且此时视图已经成为了响应者。
       // 一般来说这意味着一个手势操作已经成功完成。
       onPanResponderRelease: this._onPanResponderRelease,
+    })
+  }
+
+  public _onPanResponderGrant = (evt, gestureState) => {
+    console.info('[FloatBall]gestureState:', gestureState)
+    const { x0, y0 } = gestureState
+    console.info('[FloatBall]开始手势操作:', `x0: ${x0}`, `y0: ${y0}`)
+    const { ballStyle } = this.state
+    const { left, top } = this.props
+    this.setState({
+      ballStyle: {
+        ...ballStyle,
+        left: previousLeft + left!,
+        top: previousTop + top!,
+      },
     })
   }
 
@@ -97,12 +111,13 @@ class FloatBall extends Component<Props, any> {
     }
 
     const { ballStyle } = this.state
+    const { left, top } = this.props
     // 实时更新
     this.setState({
       ballStyle: {
         ...ballStyle,
-        left: previousLeft,
-        top: previousTop,
+        left: previousLeft + left!,
+        top: previousTop + top!,
       },
     })
   }
