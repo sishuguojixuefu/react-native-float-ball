@@ -1,14 +1,36 @@
 # react-native-float-ball
 
-## gestureState 对象
+## 安装
 
-- `stateID` - 触摸状态的 ID。在屏幕上有至少一个触摸点的情况下，这个 ID 会一直有效。
-- `moveX` - 最近一次移动时的屏幕横坐标
-- `moveY` - 最近一次移动时的屏幕纵坐标
-- `x0` - 当响应器产生时的屏幕横坐标
-- `y0` - 当响应器产生时的屏幕纵坐标
-- `dx` - 从触摸操作开始时的累计横向路程
-- `dy` - 从触摸操作开始时的累计纵向路程
-- `vx` - 当前的横向移动速度
-- `vy` - 当前的纵向移动速度
-- `numberActiveTouches` - 当前在屏幕上的有效触摸点的数量
+```sh
+$ yarn add @sishuguojixuefu/react-native-float-ball
+```
+
+## 基本使用
+
+```
+import FloatBall from '@sishuguojixuefu/react-native-float-ball'
+<FloatBall
+  onPress={() => {
+    alert('点击了球')
+  }}
+/>
+```
+
+## Props
+
+| prop          | 描述                         |
+| ------------- | ---------------------------- |
+| onPress       | 球的点击事件                 |
+| ballSize      | 球的尺寸，默认 50            |
+| left          | 球初始距离左边的位置，默认 0 |
+| top           | 球初始距离顶部的位置，默认 0 |
+| keepToTheSide | 是否靠边，默认 true          |
+
+## 参考链接
+
+- [PanResponder](https://reactnative.cn/docs/panresponder/)
+- [React-Native PanResponder 的学习与使用](http://t.cn/AiNz29NE)
+- [react-native 的 PanResponder 详解研究](http://t.cn/AiNmWcqR)
+- [TouchableOpacity with parent PanResponder](http://t.cn/AiNminWr)
+- [UNSAFE_componentWillMount()](http://t.cn/AiNEEpAB)
