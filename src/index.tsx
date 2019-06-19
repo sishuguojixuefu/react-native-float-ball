@@ -160,6 +160,7 @@ class FloatBall extends Component<Props, any> {
     })
   }
 
+  // http://t.cn/AiNBFPIf
   private _onPress = () => {
     this.pressCount += 1
     setTimeout(() => {
@@ -169,7 +170,7 @@ class FloatBall extends Component<Props, any> {
         this.props.onDoublePress()
       }
       this.pressCount = 0
-    }, 200)
+    }, 300)
   }
 
   public render() {
