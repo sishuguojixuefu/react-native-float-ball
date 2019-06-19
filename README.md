@@ -28,6 +28,7 @@ import FloatBall from '@sishuguojixuefu/react-native-float-ball'
 | left          | 球初始距离左边的位置，默认 0 |
 | top           | 球初始距离顶部的位置，默认 0 |
 | keepToTheSide | 是否靠边，默认 true          |
+| customBall    | 自定义球                     |
 
 ## 参考链接
 
