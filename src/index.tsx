@@ -26,6 +26,9 @@ class FloatBall extends Component<Props, any> {
   // 参考 http://t.cn/AiNEEpAB，不要在 componentWillMount Hook 中注册响应器
   public constructor(props) {
     super(props)
+    this.state = {
+      ballStyle: { backgroundColor: 'white' },
+    }
     this._panResponder = PanResponder.create({
       // 用户开始触摸屏幕的时候，询问是否愿意成为响应者
       onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -93,10 +96,11 @@ class FloatBall extends Component<Props, any> {
       previousTop = Dimensions.get('window').height - ballSize
     }
 
+    const { ballStyle } = this.state
     // 实时更新
     this.setState({
-      moveStyle: {
-        backgroundColor: 'red',
+      ballStyle: {
+        ...ballStyle,
         left: previousLeft,
         top: previousTop,
       },
@@ -105,10 +109,10 @@ class FloatBall extends Component<Props, any> {
 
   public render() {
     const { onPress, ballSize } = this.props
-    const { moveStyle } = this.state
+    const { ballStyle } = this.state
 
     return (
-      <TouchableOpacity {...this._panResponder.panHandlers} onPress={onPress} style={[styles.container, moveStyle]}>
+      <TouchableOpacity {...this._panResponder.panHandlers} onPress={onPress} style={[styles.container, ballStyle]}>
         <Image
           source={{ uri: 'https://i.loli.net/2019/03/21/5c9357d9d3119.png' }}
           style={[{ width: ballSize, height: ballSize, borderRadius: 25 }]}
