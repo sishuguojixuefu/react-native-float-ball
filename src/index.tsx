@@ -7,7 +7,7 @@ interface Props {
   /**
    * 球的尺寸
    */
-  readonly ballSize: number
+  readonly ballSize?: number
 }
 
 const lastLeft = 0 // 球距离左边的距离
@@ -74,7 +74,8 @@ class FloatBall extends Component<Props, any> {
   }
 
   private _movingBall = ({ dx, dy }) => {
-    const { ballSize } = this.props
+    const ballSize = this.props.ballSize!
+
     previousLeft = lastLeft + dx
     previousTop = lastTop + dy
 
@@ -85,7 +86,7 @@ class FloatBall extends Component<Props, any> {
     if (previousTop <= 0) {
       previousTop = 0
     }
-    if (previousLeft >= Dimensions.get('window').width - ballSize) {
+    if (previousLeft >= Dimensions.get('window').width - ballSize!) {
       previousLeft = Dimensions.get('window').width - ballSize
     }
     if (previousTop >= Dimensions.get('window').height - ballSize) {
