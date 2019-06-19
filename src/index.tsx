@@ -46,7 +46,7 @@ class FloatBall extends Component<Props, any> {
   private lastTop: number // 球距离顶部的距离
   private previousLeft: number // 球移动后距离左边的距离（lastLeft + gestureState.dx）
   private previousTop: number // 球移动后距离顶部的距离（lastTop + gestureState.dy）
-  private lastPress?: number
+  private pressCount: number = 0
 
   // 参考 http://t.cn/AiNEEpAB，不要在 componentWillMount Hook 中注册响应器
   public constructor(props) {
@@ -129,6 +129,9 @@ class FloatBall extends Component<Props, any> {
     const { dx, dy, moveX, moveY } = gestureState
     const { ballStyle } = this.state
     console.info('[FloatBall]手势操作成功', `moveX: ${moveX}`, `moveY: ${moveY}`, `dx: ${dx}`, `dy: ${dy}`)
+    if (dx === 0 && dy === 0 && this.pressCount === 0) {
+      this.props.onPress()
+    }
     if (ballStyle.left !== this.props.left) {
       this.lastLeft = this.previousLeft
     }
@@ -158,14 +161,15 @@ class FloatBall extends Component<Props, any> {
   }
 
   private _onPress = () => {
-    if (this.lastPress && this.lastPress + 500 <= Date.now()) {
-      this.props.onDoublePress()
-      return
-    }
-    this.lastPress = Date.now()
-    if (this.lastPress + 500 >= Date.now()) {
-      this.props.onPress()
-    }
+    this.pressCount += 1
+    setTimeout(() => {
+      if (this.pressCount === 1) {
+        this.props.onPress()
+      } else if (this.pressCount === 2) {
+        this.props.onDoublePress()
+      }
+      this.pressCount = 0
+    }, 200)
   }
 
   public render() {
