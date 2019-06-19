@@ -10,6 +10,11 @@ interface Props {
   readonly ballSize: number
 }
 
+const lastLeft = 0 // 球距离左边的距离
+const lastTop = 0 // 球距离顶部的距离
+let previousLeft = 0 // 球移动后距离左边的距离（lastLeft + gestureState.dx）
+let previousTop = 0 // 球移动后距离顶部的距离（lastTop + gestureState.dy）
+
 class FloatBall extends Component<Props, any> {
   public defaultProps = {
     onPress: () => {},
@@ -53,11 +58,11 @@ class FloatBall extends Component<Props, any> {
   }
 
   private _onPanResponderMove = (evt, gestureState) => {
-    this._limitArea(gestureState)
-    console.info('[FloatBall]gestureState:', gestureState)
     const { dx, dy, moveX, moveY } = gestureState
+    console.info('[FloatBall]gestureState:', gestureState)
     console.info('[FloatBall]最近一次的移动距离:', `moveX: ${moveX}`, `moveY: ${moveY}`)
     console.info('[FloatBall]从成为响应者开始时的累计手势移动距离:', `dx: ${dx}`, `dy: ${dy}`)
+    this._movingBall({ dx, dy })
   }
 
   private _onPanResponderRelease = (evt, gestureState) => {
@@ -68,30 +73,41 @@ class FloatBall extends Component<Props, any> {
     console.info('[FloatBall]从成为响应者开始时的累计手势移动距离:', `dx: ${dx}`, `dy: ${dy}`)
   }
 
-  /**
-   * 限制小球拖拽移动的时候不许出屏幕外部
-   */
-  private _limitArea = gestureState => {
-    // const { ballSize } = this.props
-    // if (previousLeft <= 0) {
-    //   previousLeft = 0
-    // }
-    // if (previousTop <= 0) {
-    //   previousTop = 0
-    // }
-    // if (previousLeft >= Dimensions.get('window').width - ballSize) {
-    //   previousLeft = Dimensions.get('window').width - ballSize
-    // }
-    // if (previousTop >= Dimensions.get('window').height - ballSize) {
-    //   previousTop = Dimensions.get('window').height - ballSize
-    // }
+  private _movingBall = ({ dx, dy }) => {
+    const { ballSize } = this.props
+    previousLeft = lastLeft + dx
+    previousTop = lastTop + dy
+
+    // 限制小球拖拽移动的时候不许出屏幕外部
+    if (previousLeft <= 0) {
+      previousLeft = 0
+    }
+    if (previousTop <= 0) {
+      previousTop = 0
+    }
+    if (previousLeft >= Dimensions.get('window').width - ballSize) {
+      previousLeft = Dimensions.get('window').width - ballSize
+    }
+    if (previousTop >= Dimensions.get('window').height - ballSize) {
+      previousTop = Dimensions.get('window').height - ballSize
+    }
+
+    // 实时更新
+    this.setState({
+      moveStyle: {
+        backgroundColor: 'red',
+        left: previousLeft,
+        top: previousTop,
+      },
+    })
   }
 
   public render() {
     const { onPress, ballSize } = this.props
+    const { moveStyle } = this.state
 
     return (
-      <TouchableOpacity {...this._panResponder.panHandlers} onPress={onPress} style={[styles.container]}>
+      <TouchableOpacity {...this._panResponder.panHandlers} onPress={onPress} style={[styles.container, moveStyle]}>
         <Image
           source={{ uri: 'https://i.loli.net/2019/03/21/5c9357d9d3119.png' }}
           style={[{ width: ballSize, height: ballSize, borderRadius: 25 }]}
