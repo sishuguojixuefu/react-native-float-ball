@@ -11,7 +11,9 @@ import ReactNative, {
 
 interface Props {
   readonly style?: ReactNative.ViewStyle
-  readonly onPress: (event?: ReactNative.GestureResponderEvent) => void
+  readonly onPress: (event?: ReactNative.GestureResponderEvent | any) => void
+  readonly onLongPress: (event?: ReactNative.GestureResponderEvent | any) => void
+  readonly onDoublePress: (event?: ReactNative.GestureResponderEvent | any) => void
   /**
    * 球的尺寸
    */
@@ -19,15 +21,15 @@ interface Props {
   /**
    * 默认距离左边的距离，默认 0
    */
-  left?: number
+  readonly left?: number
   /**
    * 默认距离顶部的距离，默认 100
    */
-  top?: number
+  readonly top?: number
   /**
    * 是否靠边，默认true
    */
-  keepToTheSide?: boolean
+  readonly keepToTheSide?: boolean
 }
 
 class FloatBall extends Component<Props, any> {
@@ -44,6 +46,7 @@ class FloatBall extends Component<Props, any> {
   private lastTop: number // 球距离顶部的距离
   private previousLeft: number // 球移动后距离左边的距离（lastLeft + gestureState.dx）
   private previousTop: number // 球移动后距离顶部的距离（lastTop + gestureState.dy）
+  private lastPress?: number
 
   // 参考 http://t.cn/AiNEEpAB，不要在 componentWillMount Hook 中注册响应器
   public constructor(props) {
@@ -91,13 +94,6 @@ class FloatBall extends Component<Props, any> {
 
   private _onPanResponderMove = (evt, gestureState) => {
     const { dx, dy } = gestureState
-    // if (Math.abs(dx) < 2 && Math.abs(dy) < 2) {
-    //   this.props.onPress()
-    // }
-    this._movingBall({ dx, dy })
-  }
-
-  private _movingBall = ({ dx, dy }) => {
     const ballSize = this.props.ballSize!
 
     this.previousLeft = this.lastLeft + dx
@@ -161,13 +157,24 @@ class FloatBall extends Component<Props, any> {
     })
   }
 
+  private _onPress = () => {
+    if (this.lastPress && this.lastPress + 500 <= Date.now()) {
+      this.props.onDoublePress()
+      return
+    }
+    this.lastPress = Date.now()
+    if (this.lastPress + 500 >= Date.now()) {
+      this.props.onPress()
+    }
+  }
+
   public render() {
-    const { onPress, ballSize } = this.props
+    const { ballSize, onLongPress } = this.props
     const { ballStyle } = this.state
 
     return (
       <View {...this._panResponder.panHandlers} style={[styles.container, { borderRadius: ballSize! / 2 }, ballStyle]}>
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={this._onPress} onLongPress={onLongPress}>
           <Image
             source={{ uri: 'https://i.loli.net/2019/03/21/5c9357d9d3119.png' }}
             style={[{ width: ballSize, height: ballSize, borderRadius: 25, zIndex: 9999 }]}

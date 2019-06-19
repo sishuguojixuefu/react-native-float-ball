@@ -22,6 +22,7 @@ import FloatBall from '@sishuguojixuefu/react-native-float-ball'
 | prop          | 描述                         |
 | ------------- | ---------------------------- |
 | onPress       | 球的点击事件                 |
+| onLongPress   | 球的长按事件                 |
 | ballSize      | 球的尺寸，默认 50            |
 | left          | 球初始距离左边的位置，默认 0 |
 | top           | 球初始距离顶部的位置，默认 0 |
