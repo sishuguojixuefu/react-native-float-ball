@@ -12,8 +12,8 @@ import ReactNative, {
 interface Props {
   readonly style?: ReactNative.ViewStyle
   readonly onPress: (event?: ReactNative.GestureResponderEvent | any) => void
-  readonly onLongPress: (event?: ReactNative.GestureResponderEvent | any) => void
-  readonly onDoublePress: (event?: ReactNative.GestureResponderEvent | any) => void
+  readonly onLongPress?: (event?: ReactNative.GestureResponderEvent | any) => void
+  readonly onDoublePress?: (event?: ReactNative.GestureResponderEvent | any) => void
   /**
    * 球的尺寸
    */
@@ -162,15 +162,19 @@ class FloatBall extends Component<Props, any> {
 
   // http://t.cn/AiNBFPIf
   private _onPress = () => {
-    this.pressCount += 1
-    setTimeout(() => {
-      if (this.pressCount === 1) {
-        this.props.onPress()
-      } else if (this.pressCount === 2) {
-        this.props.onDoublePress()
-      }
-      this.pressCount = 0
-    }, 300)
+    if (this.props.onDoublePress) {
+      this.pressCount += 1
+      setTimeout(() => {
+        if (this.pressCount === 1) {
+          this.props.onPress()
+        } else if (this.pressCount === 2) {
+          this.props.onDoublePress!()
+        }
+        this.pressCount = 0
+      }, 300)
+    } else {
+      this.props.onPress()
+    }
   }
 
   public render() {
