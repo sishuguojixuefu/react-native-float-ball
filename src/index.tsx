@@ -62,7 +62,10 @@ class FloatBall extends Component<Props, any> {
       // 返回false，允许内部触摸事件发生，http://t.cn/AiNminWr
       onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
       // 在每一个触摸点开始移动的时候，再询问一次是否响应触摸交互
-      onMoveShouldSetPanResponder: (evt, gestureState) => true,
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        const { dx, dy } = gestureState
+        return Math.abs(dx) > 2 && Math.abs(dy) > 2
+      },
       // 设置父视图防止子视图在移动开始时成为响应器
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
       // 其他的视图想成为响应器。这种视图应该释放应答吗？返回 true 就是允许释放
@@ -88,9 +91,9 @@ class FloatBall extends Component<Props, any> {
 
   private _onPanResponderMove = (evt, gestureState) => {
     const { dx, dy } = gestureState
-    if (Math.abs(dx) < 2 && Math.abs(dy) < 2) {
-      this.props.onPress()
-    }
+    // if (Math.abs(dx) < 2 && Math.abs(dy) < 2) {
+    //   this.props.onPress()
+    // }
     this._movingBall({ dx, dy })
   }
 
