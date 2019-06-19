@@ -11,7 +11,7 @@ import ReactNative, {
 
 interface Props {
   readonly style?: ReactNative.ViewStyle
-  readonly onPress: (event: ReactNative.GestureResponderEvent) => void
+  readonly onPress: (event?: ReactNative.GestureResponderEvent) => void
   /**
    * 球的尺寸
    */
@@ -88,6 +88,9 @@ class FloatBall extends Component<Props, any> {
 
   private _onPanResponderMove = (evt, gestureState) => {
     const { dx, dy } = gestureState
+    if (Math.abs(dx) < 2 && Math.abs(dy) < 2) {
+      this.props.onPress()
+    }
     this._movingBall({ dx, dy })
   }
 
