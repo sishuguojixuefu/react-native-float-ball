@@ -16,12 +16,12 @@ let previousLeft = 0 // 球移动后距离左边的距离（lastLeft + gestureSt
 let previousTop = 0 // 球移动后距离顶部的距离（lastTop + gestureState.dy）
 
 class FloatBall extends Component<Props, any> {
-  public defaultProps = {
+  public static defaultProps = {
     onPress: () => {},
     ballSize: 50,
   }
 
-  private _panResponder!: ReactNative.PanResponderInstance
+  public _panResponder!: ReactNative.PanResponderInstance
 
   // 参考 http://t.cn/AiNEEpAB，不要在 componentWillMount Hook 中注册响应器
   public constructor(props) {
@@ -57,7 +57,7 @@ class FloatBall extends Component<Props, any> {
     })
   }
 
-  private _onPanResponderMove = (evt, gestureState) => {
+  public _onPanResponderMove = (evt, gestureState) => {
     const { dx, dy, moveX, moveY } = gestureState
     console.info('[FloatBall]gestureState:', gestureState)
     console.info('[FloatBall]最近一次的移动距离:', `moveX: ${moveX}`, `moveY: ${moveY}`)
@@ -65,7 +65,7 @@ class FloatBall extends Component<Props, any> {
     this._movingBall({ dx, dy })
   }
 
-  private _onPanResponderRelease = (evt, gestureState) => {
+  public _onPanResponderRelease = (evt, gestureState) => {
     console.info('[FloatBall]gestureState:', gestureState)
     const { dx, dy, moveX, moveY } = gestureState
     console.warn('[FloatBall]手势操作成功')
@@ -73,7 +73,7 @@ class FloatBall extends Component<Props, any> {
     console.info('[FloatBall]从成为响应者开始时的累计手势移动距离:', `dx: ${dx}`, `dy: ${dy}`)
   }
 
-  private _movingBall = ({ dx, dy }) => {
+  public _movingBall = ({ dx, dy }) => {
     const ballSize = this.props.ballSize!
 
     previousLeft = lastLeft + dx
