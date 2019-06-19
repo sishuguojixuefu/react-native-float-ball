@@ -2,6 +2,7 @@
   "name": "@sishuguojixuefu/react-native-float-ball",
   "version": "0.1.0",
   "description": "floatBall with PanResponder",
+  "main": "dist/index.js",
   "author": "杨俊宁",
   "license": "MIT",
   "scripts": {
