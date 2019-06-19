@@ -30,6 +30,10 @@ interface Props {
    * 是否靠边，默认true
    */
   readonly keepToTheSide?: boolean
+  /**
+   * 自定义图片
+   */
+  readonly customBall?: any
 }
 
 class FloatBall extends Component<Props, any> {
@@ -178,14 +182,13 @@ class FloatBall extends Component<Props, any> {
   }
 
   public render() {
-    const { ballSize, onLongPress } = this.props
+    const { ballSize, onLongPress, customBall } = this.props
     const { ballStyle } = this.state
-
     return (
       <View {...this._panResponder.panHandlers} style={[styles.container, { borderRadius: ballSize! / 2 }, ballStyle]}>
         <TouchableOpacity onPress={this._onPress} onLongPress={onLongPress}>
           <Image
-            source={{ uri: 'https://i.loli.net/2019/03/21/5c9357d9d3119.png' }}
+            source={customBall || { uri: 'https://i.loli.net/2019/03/21/5c9357d9d3119.png' }}
             style={[{ width: ballSize, height: ballSize, borderRadius: 25, zIndex: 9999 }]}
             resizeMode="cover"
           />
