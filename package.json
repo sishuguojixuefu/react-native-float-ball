@@ -1,29 +1,44 @@
 {
-  "name": "@youngjs/react-native-float-ball",
+  "name": "@sishuguojixuefu/react-native-float-ball",
   "version": "0.1.0",
   "description": "floatBall with PanResponder",
-  "repository": "https://github.com/young-js/react-native-float-ball",
   "author": "杨俊宁",
   "license": "MIT",
   "scripts": {
-    "eslint": "eslint ."
+    "build": "tsc -p ./tsconfig.json",
+    "postversion": "git push --tags && git push && npm publish",
+    "prepublishOnly": "tsc -p ./tsconfig.json"
   },
+  "repository": "https://github.com/sishuguojixuefu/react-native-float-ball",
+  "bugs": {
+    "url": "https://github.com/sishuguojixuefu/react-native-float-ball/issues"
+  },
+  "homepage": "https://github.com/sishuguojixuefu/react-native-float-ball#readme",
+  "keywords": [
+    "react-native",
+    "PanResponder",
+    "ios",
+    "android",
+    "sishuguojixuefu"
+  ],
   "devDependencies": {
-    "@types/react": "^16.8.8",
-    "@types/react-native": "^0.57.41",
+    "@types/react": "^16.8.17",
+    "@types/react-native": "^0.57.55",
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.10.2",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.17.2",
+    "eslint-config-prettier": "^5.0.0",
+    "eslint-import-resolver-typescript": "^1.1.1",
+    "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.13.0",
-    "tslint-mobx": "^1.0.10",
-    "tslint-react": "^3.6.0",
-    "typescript": "^3.3.4000"
+    "eslint-plugin-react-native": "^3.7.0",
+    "prettier": "^1.18.2",
+    "typescript": "^3.5.2"
   },
   "files": [
-    "index.tsx"
-  ],
-  "dependencies": {
-    "@types/node": "^11.11.4"
-  }
+    "dist"
+  ]
 }
