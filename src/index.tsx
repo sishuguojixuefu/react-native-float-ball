@@ -80,8 +80,6 @@ class FloatBall extends Component<Props, any> {
       // 返回一个布尔值，决定当前组件是否应该阻止原生组件成为JS响应者
       // 默认返回true。目前暂时只支持android。
       onShouldBlockNativeResponder: (evt, gestureState) => true,
-      // 开始手势操作，也可以说按下去。给用户一些视觉反馈，让他们知道发生了什么事情！（如：可以修改颜色）
-      onPanResponderGrant: this._onPanResponderGrant,
       // 最近一次的移动距离为gestureState.move{X,Y}
       // 从成为响应者开始时的累计手势移动距离为gestureState.d{x,y}
       onPanResponderMove: this._onPanResponderMove,
@@ -89,11 +87,6 @@ class FloatBall extends Component<Props, any> {
       // 一般来说这意味着一个手势操作已经成功完成。
       onPanResponderRelease: this._onPanResponderRelease,
     })
-  }
-
-  private _onPanResponderGrant = (evt, gestureState) => {
-    const { x0, y0 } = gestureState
-    console.info('[FloatBall]开始手势操作:', `x0: ${x0}`, `y0: ${y0}`)
   }
 
   private _onPanResponderMove = (evt, gestureState) => {
@@ -130,9 +123,8 @@ class FloatBall extends Component<Props, any> {
   }
 
   private _onPanResponderRelease = (evt, gestureState) => {
-    const { dx, dy, moveX, moveY } = gestureState
+    const { dx, dy } = gestureState
     const { ballStyle } = this.state
-    console.info('[FloatBall]手势操作成功', `moveX: ${moveX}`, `moveY: ${moveY}`, `dx: ${dx}`, `dy: ${dy}`)
     if (dx === 0 && dy === 0 && this.pressCount === 0) {
       this.props.onPress()
     }
@@ -188,7 +180,7 @@ class FloatBall extends Component<Props, any> {
       <View {...this._panResponder.panHandlers} style={[styles.container, { borderRadius: ballSize! / 2 }, ballStyle]}>
         <TouchableOpacity onPress={this._onPress} onLongPress={onLongPress}>
           <Image
-            source={customBall || { uri: 'https://i.loli.net/2019/03/21/5c9357d9d3119.png' }}
+            source={customBall || require('./ball.png')}
             style={[{ width: ballSize, height: ballSize, borderRadius: 25, zIndex: 9999 }]}
             resizeMode="cover"
           />
