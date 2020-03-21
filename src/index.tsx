@@ -180,7 +180,7 @@ class FloatBall extends Component<Props, any> {
       <View {...this._panResponder.panHandlers} style={[styles.container, { borderRadius: ballSize! / 2 }, ballStyle]}>
         <TouchableOpacity onPress={this._onPress} onLongPress={onLongPress}>
           <Image
-            source={customBall || require('./ball.png')}
+            source={customBall || require('../ball.png')}
             style={[{ width: ballSize, height: ballSize, borderRadius: 25, zIndex: 9999 }]}
             resizeMode="cover"
           />
